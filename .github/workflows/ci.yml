@@ -37,7 +37,6 @@ jobs:
           run: mvn test
     
         - name: Check test coverage
-          run: mvn jacoco:check
-          env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          run: mvn clean verify
+
     

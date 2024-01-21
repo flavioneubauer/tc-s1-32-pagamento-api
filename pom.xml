@@ -16,6 +16,8 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
+        <jacoco.version>0.8.8</jacoco.version>
+        <jacoco.outputDir>${project.basedir}/target/jacoco.exec</jacoco.outputDir>
     </properties>
 
     <dependencyManagement>
@@ -73,10 +75,11 @@
             <scope>provided</scope>
         </dependency>
         <dependency>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
-        </dependency>
+            <groupId>org.jacoco</groupId>
+            <artifactId>org.jacoco.agent</artifactId>
+            <version>${jacoco.version}</version>
+            <scope>test</scope>
+        </dependency> 
     </dependencies>
 
     <build>
@@ -86,7 +89,7 @@
             <artifactId>maven-surefire-plugin</artifactId>
             <version>3.0.0</version>
             <configuration>
-                <argLine>-Xmx512m</argLine>
+                <argLine>${argLine} -Xmx512m</argLine>
             </configuration>
         </plugin>
 
@@ -95,46 +98,83 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>br.com.fiap.soat1.t32.Main</mainClass>
+                    <systemPropertyVariables>
+                        <jacoco-agent.destfile>target/jacoco.exec</jacoco-agent.destfile>
+                    </systemPropertyVariables>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.8</version>
+                <version>${jacoco.version}</version>
+                <configuration>
+                    <append>true</append>
+                </configuration>
                 <executions>
                     <execution>
-                        <id>jacoco-initialize</id>
+                        <id>default-instrument</id>
+                        <goals>
+                            <goal>instrument</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*test*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>default-restore-instrumented-classes</id>
+                        <goals>
+                            <goal>restore-instrumented-classes</goal>
+                        </goals>
+                        <configuration>
+                            <includes>
+                                <include>**/*test*</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>Prepare-Jacoco</id>
                         <goals>
                             <goal>prepare-agent</goal>
                         </goals>
+                        <configuration>
+                            <excludes>
+                                <exclude>**/*test*</exclude>
+                            </excludes>
+                        </configuration>
                     </execution>
                     <execution>
-                        <id>jacoco-site</id>
-                        <phase>package</phase>
+                        <id>default-report</id>
+                        <phase>prepare-package</phase>
                         <goals>
                             <goal>report</goal>
                         </goals>
                     </execution>
-                       <execution>
-                        <id>jacoco-check</id>
+                    <execution>
+                        <id>default-check</id>
                         <goals>
                             <goal>check</goal>
                         </goals>
                         <configuration>
                             <rules>
                                 <rule>
-                                    <element>BUNDLE</element>
+                                    <element>CLASS</element>
+                                    <excludes>
+                                    <exclude>*Test</exclude>
+                                    </excludes>
                                     <limits>
-                                        <limit>
-                                            <counter>LINE</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>0.80</minimum>
-                                        </limit>
+                                    <limit>
+                                        <counter>LINE</counter>
+                                        <value>COVEREDRATIO</value>
+                                        <minimum>80%</minimum>
+                                    </limit>
                                     </limits>
                                 </rule>
                             </rules>
                         </configuration>
                     </execution>
+
                 </executions>
             </plugin>
         </plugins>

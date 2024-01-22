@@ -18,7 +18,7 @@
         <maven.compiler.target>17</maven.compiler.target>
         <jacoco.version>0.8.8</jacoco.version>
         <jacoco.outputDir>${project.basedir}/target/jacoco.exec</jacoco.outputDir>
-        <sonar.organization>flavioneubauer</sonar.organization>
+        <sonar.organization>tc-s1-32</sonar.organization>
         <sonar.host.url>https://sonarcloud.io/</sonar.host.url>
     </properties>
 

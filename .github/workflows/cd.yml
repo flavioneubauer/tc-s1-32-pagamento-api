@@ -1,14 +1,12 @@
+name: CD
 
 on:
-    push:
-        branches: 
-            - main
-        paths:
-            - '**.java'
-            - '**.properties'
-            - '**.xml'
-            - '**.yml'
-            - '**.json'
+  workflow_run:
+    workflows: ["CI"]
+    branches: 
+        - main  
+    types:
+      - completed
             
 env:
   AWS_REGION: ${{ secrets.AWS_REGION }}            #  set this to your preferred AWS region, e.g. us-west-1
@@ -23,6 +21,9 @@ env:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
+    if: github.event.workflow_run.conclusion == 'success'
+
     steps:
         - name: Checkout code
           uses: actions/checkout@v3

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
-@FeignClient(value = "${pedido.api.base-path}")
+@FeignClient(name = "pedidoClient", url = "${pedido.api.base-path}")
 public interface PedidoClient {
 
     @PostMapping(value = "/v1/pedidos", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)

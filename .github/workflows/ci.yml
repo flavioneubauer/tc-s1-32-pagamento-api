@@ -9,7 +9,7 @@ on:
       - '**.json'
   push:
       branches: 
-          - master
+          - main
       paths:
           - '**.java'
           - '**.properties'

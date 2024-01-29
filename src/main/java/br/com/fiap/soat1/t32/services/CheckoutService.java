@@ -10,15 +10,16 @@ import org.springframework.stereotype.Service;
 public class CheckoutService {
 
     private final PedidoService pedidoService;
+    private final PagamentoService pagamentoService;
 
     public Long realizarCheckout(CheckoutRequest checkout) {
         validaCheckout(checkout);
 
-//        final var pedidoId = this.pedidoService.cadastrar(PedidoMapper.map(checkout));
+        final var idPedido = this.pedidoService.cadastrar(checkout);
 
+        this.pagamentoService.cadastrar(idPedido);
 
-
-        return 0L;
+        return idPedido;
     }
 
     private void validaCheckout(CheckoutRequest checkout) {

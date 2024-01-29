@@ -1,22 +1,15 @@
 name: CI
 
 on:
-  pull_request:
+  push:
+    branches:
+      - main
     paths:
       - '**.java'
       - '**.properties'
       - '**.xml'
       - '**.yml'
       - '**.json'
-  push:
-      branches: 
-          - main
-      paths:
-          - '**.java'
-          - '**.properties'
-          - '**.xml'
-          - '**.yml'
-          - '**.json'
 
 jobs:
   build:

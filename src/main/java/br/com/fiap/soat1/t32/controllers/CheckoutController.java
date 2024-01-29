@@ -36,6 +36,8 @@ public class CheckoutController {
     @ApiResponse(responseCode = "201", description = "Checkout realizado")
     @ApiResponse(responseCode = "422", description = "Erro de validação",
         content = @Content(schema = @Schema(implementation = RespostaErro.class)))
+    @ApiResponse(responseCode = "500", description = "Erro de sistema",
+            content = @Content(schema = @Schema(implementation = RespostaErro.class)))
     @PostMapping(consumes = {APPLICATION_JSON_VALUE, ALL_VALUE},
             produces = {APPLICATION_JSON_VALUE})
     public ResponseEntity<CheckoutResponse> realizaCheckout(@RequestBody CheckoutRequest request) {

@@ -33,6 +33,8 @@ public class PagamentoWebhookController {
     @ApiResponse(responseCode = "200", description = "Pedido atualizado.")
     @ApiResponse(responseCode = "422", description = "Erro de validação",
             content = @Content(schema = @Schema(implementation = RespostaErro.class)))
+    @ApiResponse(responseCode = "500", description = "Erro de sistema",
+            content = @Content(schema = @Schema(implementation = RespostaErro.class)))
     @PostMapping(consumes = {APPLICATION_JSON_VALUE, ALL_VALUE},
             produces = {APPLICATION_JSON_VALUE})
     public ResponseEntity<Void> alteraPagamentoPedido(@RequestBody PagamentoPedidoRequest request) {

@@ -13,9 +13,7 @@ import java.util.List;
 @Builder
 public class PedidoClientRequest {
 
-    private Long id;
     private StatusPreparacaoPedido statusPreparacao;
-    private StatusPagamentoPedido statusPagamento;
     private ClienteClientRequest cliente;
     private List<PedidoProdutoClientRequest> produtos;
 }

@@ -10,6 +10,7 @@ on:
       - '**.xml'
       - '**.yml'
       - '**.json'
+      - '**.md'
 
 jobs:
   build:

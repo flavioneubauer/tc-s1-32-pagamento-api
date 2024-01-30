@@ -9,7 +9,7 @@
     </parent>
     <groupId>br.com.fiap.soat1.t32</groupId>
     <artifactId>tc-s1-32-pagamento-api</artifactId>
-    <version>1.0.0</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>tc-s1-32-pagamento-api</name>
     <description>Tech Challenge - Projeto da Turma 32 - SOAT 1 - API de Pagamentos</description>
     <properties>

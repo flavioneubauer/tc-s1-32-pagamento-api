@@ -10,10 +10,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import static org.springframework.http.MediaType.ALL_VALUE;
 import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
@@ -35,11 +32,11 @@ public class PagamentoWebhookController {
             content = @Content(schema = @Schema(implementation = RespostaErro.class)))
     @ApiResponse(responseCode = "500", description = "Erro de sistema",
             content = @Content(schema = @Schema(implementation = RespostaErro.class)))
-    @PostMapping(consumes = {APPLICATION_JSON_VALUE, ALL_VALUE},
+    @PostMapping(value = "{pagamentoId}", consumes = {APPLICATION_JSON_VALUE, ALL_VALUE},
             produces = {APPLICATION_JSON_VALUE})
-    public ResponseEntity<Void> alteraPagamentoPedido(@RequestBody PagamentoPedidoRequest request) {
+    public ResponseEntity<Void> alteraPagamentoPedido(@PathVariable Long pagamentoId, @RequestBody PagamentoPedidoRequest request) {
 
-        pagamentoService.recebeAtualizacaoPagamento(request);
+        pagamentoService.recebeAtualizacaoPagamento(pagamentoId, request);
 
         return ResponseEntity.ok().build();
     }

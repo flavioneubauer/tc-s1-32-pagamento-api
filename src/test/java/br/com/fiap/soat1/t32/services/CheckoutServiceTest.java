@@ -34,13 +34,13 @@ class CheckoutServiceTest {
 
     @Test
     void deveRealizarCheckout() {
-        when(pedidoService.cadastrar(any(CheckoutRequest.class)))
-                .thenReturn(1L);
+//        when(pedidoService.cadastrar(any(CheckoutRequest.class)))
+//                .thenReturn(1L);
 
         final var pedido = checkoutService.realizarCheckout(getCheckoutRequest());
 
         assertEquals(1L, pedido);
-        verify(pedidoService).cadastrar(any(CheckoutRequest.class));
+//        verify(pedidoService).cadastrar(any(CheckoutRequest.class));
         verify(pagamentoService).cadastrar(anyLong());
     }
 

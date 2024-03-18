@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+#  db-pagamento:
+#    image: postgres
+#    restart: always
+#    environment:
+#      POSTGRES_DB: tc_pagamento
+#      POSTGRES_PASSWORD: postgres
+#    networks:
+#      - tc-s1-32
+#  app:
+#    image: ms-pagamento:latest
+#    build:
+#      dockerfile: Dockerfile
+#      context: .
+#    ports:
+#      - 8081:8080
+#    depends_on:
+#      - db-pagamento
+#    environment:
+#      spring.datasource.url: jdbc:postgresql://db-pagamento:5432/tc_pagamento
+#      PEDIDO_API_BASEPATH: http://pedido-app:8080
+#      SPRING_DATASOURCE_PASSWORD: postgres
+#      SPRING_DATASOURCE_USERNAME: postgres
+#    pull_policy: always
+#    restart: on-failure
+#    networks:
+#      - tc-s1-32
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: 'rabbitmq'
+    ports:
+      - 5672:5672
+      - 15672:15672
+    volumes:
+      - $PWD/rabbitmq/data/:/var/lib/rabbitmq/
+      - $PWD/rabbitmq/log/:/var/log/rabbitmq
+    environment:
+      - RABBITMQ_DEFAULT_USER=admin
+      - RABBITMQ_DEFAULT_PASS=admin123
+    networks:
+      - tc-s1-32
+
+networks:
+  tc-s1-32:
+    external: true

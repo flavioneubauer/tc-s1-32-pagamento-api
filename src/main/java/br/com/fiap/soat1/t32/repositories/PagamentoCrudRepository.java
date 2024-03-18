@@ -5,6 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 
 public interface PagamentoCrudRepository extends CrudRepository<PagamentoDb, Long> {
 
-    PagamentoDb findByIdPedido(Long idPedido);
 
+    PagamentoDb findByIdPedido(Long idPedido);
 }

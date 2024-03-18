@@ -11,6 +11,6 @@ import lombok.NoArgsConstructor;
 @Builder
 public class CheckoutResponse {
 
-    private Long idPedido;
+    private Long idPagamento;
 
 }

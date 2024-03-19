@@ -13,14 +13,12 @@ public final class PagamentoTestUtils {
 
     public static PagamentoPedidoRequest getPagamentoPedidoRequest_Aprovado() {
         return PagamentoPedidoRequest.builder()
-                .idPedido(10L)
                 .pagamentoAprovado(Boolean.TRUE)
                 .build();
     }
 
     public static PagamentoPedidoRequest getPagamentoPedidoRequest_Recusado() {
         return PagamentoPedidoRequest.builder()
-                .idPedido(10L)
                 .pagamentoAprovado(Boolean.FALSE)
                 .build();
     }

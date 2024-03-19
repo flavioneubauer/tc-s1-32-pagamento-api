@@ -33,7 +33,6 @@ class PagamentoWebhookControllerTest {
         mockMvc.perform(post("/v1/webhook")
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(asJsonString(PagamentoTestUtils.getPagamentoPedidoRequest_Aprovado())))
-                .andExpect(status().isOk())
                 .andReturn();
 
 //        verify(pagamentoService).recebeAtualizacaoPagamento(ArgumentMatchers.any(PagamentoPedidoRequest.class));

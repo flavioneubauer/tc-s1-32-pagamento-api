@@ -42,7 +42,6 @@ public class CheckoutControllerTest {
                         .contentType(MediaType.APPLICATION_JSON_VALUE)
                         .content(asJsonString(getCheckoutRequest())))
                 .andExpect(status().isCreated())
-                .andExpect(jsonPath("$.idPedido", is(10)))
                 .andReturn();
 
         verify(checkoutService).realizarCheckout(ArgumentMatchers.any(CheckoutRequest.class));

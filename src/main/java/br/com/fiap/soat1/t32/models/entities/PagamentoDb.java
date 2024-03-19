@@ -20,7 +20,7 @@ public class PagamentoDb {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Long id;
 
-    @Column(nullable = false)
+    @Column(nullable = true)
     private Long idPedido;
 
     @Column(nullable = false)
@@ -31,4 +31,8 @@ public class PagamentoDb {
     private LocalDateTime horaCriacao;
 
     private LocalDateTime horaAlteracao;
+
+    private String callbackMeioPagamento;
+
+    private String mensagemErro;
 }

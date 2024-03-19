@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="|Pagamento do pedido ${pedido}!|" />
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <script>
+        async function send(pagamento, status){
+            const response = await fetch(location.origin + '/v1/webhook/' + pagamento,{
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({"pagamentoAprovado" : status})
+            });
+            return response.json();
+        }
+
+        async function sendOk(pagamento){
+            await send(pagamento, true);
+        }
+
+        async function sendError(pagamento){
+            await send(pagamento, false);
+        }
+    </script>
+</head>
+<body>
+
+<h1 th:text="|Teste de pagamento do pedido ${pedido}!|" />
+
+<button th:onclick="|sendOk('${pagamento}')|">Processar com sucesso</button>
+<button th:onclick="|sendError('${pagamento}')|">Processar com falha</button>
+
+</body>
+</html>

@@ -8,9 +8,9 @@ import static lombok.AccessLevel.PRIVATE;
 @NoArgsConstructor(access = PRIVATE)
 public final class CheckoutMapper {
 
-    public static CheckoutResponse map(Long idPedido) {
+    public static CheckoutResponse map(Long idPagamento) {
         return CheckoutResponse.builder()
-                .idPedido(idPedido)
+                .idPagamento(idPagamento)
                 .build();
     }
 

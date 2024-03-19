@@ -10,8 +10,5 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Builder
 public class PagamentoPedidoRequest {
-
-    private Long idPedido;
     private Boolean pagamentoAprovado;
-
 }

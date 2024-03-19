@@ -1,42 +1,50 @@
 package br.com.fiap.soat1.t32.services;
 
-import br.com.fiap.soat1.t32.clients.PedidoClient;
-import br.com.fiap.soat1.t32.enums.StatusPreparacaoPedido;
 import br.com.fiap.soat1.t32.exceptions.IntegrationException;
 import br.com.fiap.soat1.t32.models.parameters.CheckoutRequest;
-import feign.FeignException;
+import br.com.fiap.soat1.t32.models.queues.CriacaoPedido;
+import br.com.fiap.soat1.t32.models.queues.PagamentoPedidoAutorizado;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.amqp.AmqpException;
+import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import static br.com.fiap.soat1.t32.utils.mappers.PedidoMapper.map;
-import static java.util.Objects.isNull;
-
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class PedidoService {
 
-    private final PedidoClient pedidoClient;
+	private final RabbitTemplate rabbitTemplate;
+	@Value("${fila.pedidos.nome}")
+	private String filaPedidos;
 
-    public Long cadastrar(final CheckoutRequest checkout) {
-        try {
-            final var response = this.pedidoClient.cadastrar(map(checkout));
+	@Value("${fila.pagamento-pedido-autorizado.nome}")
+	private String filaPagamentoPedidoAutorizado;
 
-            if (isNull(response) || isNull(response.getId())) {
-                throw new IntegrationException("Não foi possível incluir pedido.");
-            }
+	public boolean cadastrar(Long idPagamento, final CheckoutRequest checkout) {
+		try {
+			CriacaoPedido criacaoPedido = CriacaoPedido.builder()
+				.pedido(checkout)
+				.idPagamento(idPagamento)
+				.build();
+			rabbitTemplate.convertAndSend(filaPedidos, criacaoPedido);
+			return true;
+		} catch (AmqpException e) {
+			log.error("Failed to push to queue criacao-pedido with paymentId" + idPagamento, e);
+			return false;
+		}
+	}
 
-            return response.getId();
-        } catch(FeignException fe) {
-            throw new IntegrationException("Houve um erro na inclusão do pedido.");
-        }
-    }
-
-    public void alterarStatusPreparacaoPedido(Long id, StatusPreparacaoPedido statusPreparacaoPedido){
-        try {
-            pedidoClient.alterarStatusPreparacaoPedido(id, statusPreparacaoPedido);
-        } catch(FeignException fe) {
-            throw new IntegrationException("Houve um erro na alteração de status de preparação do pedido.");
-        }
-    }
+	public void notificarPagamentoPedidoAutorizado(Long idPedido) {
+		try {
+			rabbitTemplate.convertAndSend(filaPagamentoPedidoAutorizado, PagamentoPedidoAutorizado.builder()
+					.idPedido(idPedido)
+					.build());
+		} catch (AmqpException e) {
+			log.error("Failed to push to queue pagamento-pedido-autorizado" + idPedido, e);
+		}
+	}
 
 }

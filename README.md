@@ -5,6 +5,7 @@ As principais funcionalidades são:
 
 - Checkout de pedido
 - Webhook de alteração de status de pagamento
+- Verificação do status do pagamento
 
 ## Sequencia Saga
 
@@ -43,10 +44,8 @@ sequenceDiagram
     Pedido API ->> DB Pedido: atualiza status do pedido<br>cozinha pode preparar
 ```
 
-** Novos metodos
-
-- API para devolver o status do pagamento via id do pagamento
-- Caso a criação do pedido de erro, armazenar a mensagem de erro da fila 
+Escolhemos o padrão **Coreografado** por ser uma sequência de interações entre apenas dois serviços, de forma que ambos podem ter suas ações e contra medidas de forma independente.
+O padrão orquestrado implicaria em uma complexidade desnecessária para esse tipo de situação.
 
 ## Diagrama Arquitetural da comunicação entre os serviços
 

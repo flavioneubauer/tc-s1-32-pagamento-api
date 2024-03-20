@@ -49,6 +49,8 @@ O padrão orquestrado implicaria em uma complexidade desnecessária para esse ti
 
 ## Diagrama Arquitetural da comunicação entre os serviços
 
+![diagrama-cloud](aws-infra.png)
+
 ![diagrama](tc-s1-32-entrega4-v6.drawio.png)
 
 ## Definição dos pacotes

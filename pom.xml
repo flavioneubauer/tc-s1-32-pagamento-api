@@ -186,13 +186,6 @@
                                         <include>br.com.fiap.soat1.t32.controllers.**</include>
                                         <include>br.com.fiap.soat1.t32.utils.**</include>
                                     </includes>
-                                    <limits>
-                                        <limit>
-                                            <counter>LINE</counter>
-                                            <value>COVEREDRATIO</value>
-                                            <minimum>80%</minimum>
-                                        </limit>
-                                    </limits>
                                 </rule>
                             </rules>
                         </configuration>

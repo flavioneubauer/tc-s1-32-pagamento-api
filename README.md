@@ -53,32 +53,7 @@ O padrão orquestrado implicaria em uma complexidade desnecessária para esse ti
 
 ![diagrama](tc-s1-32-entrega4-v6.drawio.png)
 
-## Definição dos pacotes
+## ENTREGÁVEIS:
 
-Os pacotes seguem uma estrutura simples de separação exemplificada a seguir:
-
-- [clients](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Fclients)
-
-- [controllers](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Fcontrollers)
-
-- [enums](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Fenums)
-
-- [exceptions](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Fexceptions)
-
-- [models](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Fmodels)
-
-- [repositories](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Frepositories)
-
-- [services](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Fservices)
-
-- [mappers](src%2Fmain%2Fjava%2Fbr%2Fcom%2Ffiap%2Fsoat1%2Ft32%2Futils%2Fmappers)
-
-## Definições de testes
-
-Para os testes de unidade, foram considerados os pacotes <b>controllers</b> e <b>services</b>.
-
-Para services, utilizamos o Mockito para mockar toda a camada repository e validar as regras de negócio isoladamente.
-
-Nas controllers, fizemos o mock das services e validamos contratos das APIs.
-
-Para calcular a cobertura de teste do projeto utilizando o Jacoco, basta executar o comando `mvn clean install` e acessar o resultado do cálculo na pasta target/site/jacoco/index.html.
+- [Relatório RIPD](relatorios/ripd/RIPD.pdf)
+- [Relatório ZAP Scanning Report](relatorios/owasp_zap/ZAP%20Scanning%20Report%20-%20Fluxos%20solicitados.html)
